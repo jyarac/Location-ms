@@ -19,3 +19,5 @@ const getFlight = (req:Request, res:Response) => {
     }
 
 }
+//export all the functions
+export { getFlights, getFlight};
