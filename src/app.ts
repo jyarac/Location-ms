@@ -2,8 +2,6 @@
 import express from "express";
 import "dotenv/config";
 import cors from "cors";
-import { router } from "./routes";
-import flightsRoutes from "./routes/flightsRoutes";
 import notificationRoutes from "./routes/notificationsRoutes";
 import bodyParser from "body-parser";
 import db from "./config/mongo";
@@ -12,7 +10,6 @@ const app = express();
 app.use(cors());
 //listen at port 3000
 app.use(bodyParser.json());
-app.use("/flights",flightsRoutes);
 app.use("/notifications",notificationRoutes);
 //start db
 db().then(()=> console.log("db connected"))
