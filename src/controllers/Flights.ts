@@ -4,7 +4,7 @@ import { handleHttp } from '../config/utils/error.handle';
 
 const getFlights = (req:Request, res:Response) => {
     try{
-
+        
     }
     catch(e){
         handleHttp(res, "ERROR_GET_FLIGHTS");

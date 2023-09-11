@@ -5,8 +5,8 @@ import cors from "cors";
 import { router } from "./routes";
 import flightsRoutes from "./routes/flightsRoutes";
 import notificationRoutes from "./routes/notificationsRoutes";
-import db from "./config/neo4j";
 import bodyParser from "body-parser";
+import db from "./config/mongo";
 const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(cors());
@@ -14,8 +14,9 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use("/flights",flightsRoutes);
 app.use("/notifications",notificationRoutes);
-//open db connection
+//start db
 db().then(()=> console.log("db connected"))
+//open db connection
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
