@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  notification-ms:
+    image: jyarac/notification-ms
+    ports:
+      - "3000:3000"
