@@ -2,7 +2,7 @@ import * as amqp from 'amqplib';
 import notificationSchema from '../models/notification.model';
 import {INotification} from '../domain/interfaces/notification.interfaces';
 const queueName = process.env.QUEUE_NAME || 'notifications'
-const rabbitMqUrl = process.env.RABBITMQ_URL || 'amqp://localhost'
+const rabbitMqUrl = process.env.RABBITMQ_URL || 'amqp://localhost:5673'
 
 async function startConsumer() {
     const connection = await amqp.connect(rabbitMqUrl); // Connect to RabbitMQ server
