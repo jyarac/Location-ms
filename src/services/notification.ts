@@ -13,7 +13,11 @@ const requestNotifications = async () => {
 };
 
 const requestNotification = async (id: any) => {
-    const responseGet = await notificationModel.findById(id);
+    const threeMinutesAgo = new Date(Date.now() - 3 * 60 * 1000);
+    const responseGet = await notificationModel.find(
+        {plate: id, 
+         createdAt: {$gte: threeMinutesAgo}},
+    );
     return responseGet;
 };
 

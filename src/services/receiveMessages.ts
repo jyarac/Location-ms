@@ -2,10 +2,10 @@ import * as amqp from 'amqplib';
 import notificationSchema from '../models/notification.model';
 import {INotification} from '../domain/interfaces/notification.interfaces';
 const queueName = process.env.QUEUE_NAME || 'notifications'
-const rabbitMqUrl = process.env.RABBITMQ_URL || 'amqp://localhost:5673'
+const rabbitMqUrl = process.env.RABBITMQ_URL || 'guest:guest@rabbitmq:5672'
 
 async function startConsumer() {
-    const connection = await amqp.connect(rabbitMqUrl); // Connect to RabbitMQ server
+    const connection = await amqp.connect(`amqp://${rabbitMqUrl}`); // Connect to RabbitMQ server
   
     const channel = await connection.createChannel(); // Create a channel
   
@@ -24,7 +24,7 @@ async function startConsumer() {
             message: content.message,
           });
           notificationSchema.create(notification);
-          channel.ack(msg); // Acknowledge that the message has been received and processed
+          // Acknowledge that the message has been received and processed
         }
       },
       { noAck: false } // Set noAck to false to manually acknowledge messages

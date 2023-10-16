@@ -1,35 +1,22 @@
 version: '3'
-
 services:
-  notification:
-    image: jyarac/notification_ms
-    container_name: notification-microservice
-    ports: 
-      - "3000:3000"
-    networks: 
-      - rabbit_mq_nf
-  gps:
-    image: jomaldonadob/gps-ms
-    container_name: gps-microservice
-    ports: 
-      - "3001:3001"
-    networks: 
-      - rabbit_mq_nf
-  rabbit_ms:
-    image: jyarac/mq_ms
-    container_name: rabbit-microservice
-    ports: 
-      - "3005:3005"
-    networks: 
-      - rabbit_mq_nf
-  rabbit:
-    image: rabbitmq:3-management
+  rabbitmq:
+    image: rabbitmq:3.12-management
     container_name: rabbitmq
     ports:
-      - "5672:5672"
       - "15672:15672"
-    networks: 
-      - rabbit_mq_nf
-networks:
-  rabbit_mq_nf:
-    driver: bridge
+      - "5672:5672"  
+  notification:
+    image: jyarac/notification-ms
+    container_name: notification-microservice
+    ports:
+      - "3000:3000"
+    depends_on:
+      - rabbitmq
+  notifications_mq:
+    image: jyarac/mq_ms
+    container_name: notifications_mq
+    ports:
+      - "3001:3001"
+    depends_on:
+      - rabbitmq
